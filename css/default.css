@@ -269,7 +269,7 @@ mark.console_find_highlighted {
 /* text inside a box that is being edited */
 #new_object_textentry {
     /* max-width: 10ch; */
-    min-width: 3ch;
+    min-width: 5ch;
     position: absolute;
     display: table-cell;
     padding: 3px 2px 3px 2px;
