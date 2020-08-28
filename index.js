@@ -38,6 +38,7 @@ function create_window(cid, type, width, height, xpos, ypos, attr_array) {
 			$.get("./components/canvas/"+f, function(data){
                  $("#canvas-container").append(data)
                  update_canvas_id(cid);
+                 add_canvas_name(cid, attr_array.name)
                  register_canvas(cid, attr_array);
             });
             
@@ -57,7 +58,7 @@ function create_window(cid, type, width, height, xpos, ypos, attr_array) {
                 // cleaning dialog div
                 dialog_div.innerHTML = "";
 
-                $("#sidebar-body").prepend(dialog_div.outerHTML)
+                $("#sidebar-body-dialog").prepend(dialog_div.outerHTML)
                 $("#dialog-div").prepend(data)
 
                 // initialize the dialog window                
@@ -111,6 +112,16 @@ function add_menu(){
     });
 }
 
+function dsp_toggle(){
+    // DSP toggle
+    document.getElementById("dsp_control").addEventListener("click",
+        function(evt) {
+            var dsp_state = evt.target.checked ? 1 : 0;
+            pdbundle.pdgui.pdsend("pd dsp", dsp_state);
+        }
+    );    
+}
+
 function create_pd_window_menus(gui, w) {
     var type = "web";
     var m = menu_options(type, w);
@@ -123,7 +134,8 @@ function gui_init(win){
     // Init vars
     pdbundle.pdgui.set_pd_window(win);
     pdbundle.pdgui.set_new_window_fn(create_window);
-    add_menu()
+    add_menu();
+    dsp_toggle();
 }
 
 function initialize_webapp() {
